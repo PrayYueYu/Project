@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Bookmark Manager</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">🔖</span>
+          <span class="brand-name">Better Bookmark</span>
+        </div>
+
+        <p class="sidebar-browser-note">
+          当前浏览器：<span id="browserName">识别中...</span>
+        </p>
+
+        <nav class="sidebar-menu" aria-label="书签管理功能">
+          <button
+            id="managerViewButton"
+            class="sidebar-menu-button"
+            type="button"
+            aria-label="管理器书签"
+            title="管理器书签"
+            aria-pressed="true"
+          >
+            <svg class="sidebar-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 5.75A2.75 2.75 0 0 1 6.75 3h10.5A2.75 2.75 0 0 1 20 5.75v12.5A2.75 2.75 0 0 1 17.25 21H6.75A2.75 2.75 0 0 1 4 18.25V5.75Zm4.25 2a1 1 0 1 0 0 2h7.5a1 1 0 1 0 0-2h-7.5Zm0 4.5a1 1 0 1 0 0 2h5.5a1 1 0 1 0 0-2h-5.5Z" />
+            </svg>
+            <span>管理器书签</span>
+          </button>
+
+          <button
+            id="browserViewButton"
+            class="sidebar-menu-button"
+            type="button"
+            aria-label="浏览器书签"
+            title="浏览器书签"
+            aria-pressed="false"
+          >
+            <svg class="sidebar-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm5.86 8h-3.18a13.6 13.6 0 0 0-1.02-5.03A7.03 7.03 0 0 1 17.86 11ZM12 5.05c.58.86 1.25 2.73 1.38 5.95h-2.76c.13-3.22.8-5.09 1.38-5.95ZM5.14 13h3.18c.14 1.95.5 3.72 1.02 5.03A7.03 7.03 0 0 1 5.14 13Zm3.18-2H5.14a7.03 7.03 0 0 1 4.2-5.03A13.6 13.6 0 0 0 8.32 11ZM12 18.95c-.58-.86-1.25-2.73-1.38-5.95h2.76c-.13 3.22-.8 5.09-1.38 5.95Zm2.66-.92c.52-1.31.88-3.08 1.02-5.03h3.18a7.03 7.03 0 0 1-4.2 5.03Z" />
+            </svg>
+            <span>浏览器书签</span>
+          </button>
+
+          <button
+            id="openNativeButton"
+            class="sidebar-menu-button"
+            type="button"
+            aria-label="打开原生浏览器"
+            title="打开原生浏览器"
+          >
+            <svg class="sidebar-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M5 5.75A2.75 2.75 0 0 1 7.75 3h8.5A2.75 2.75 0 0 1 19 5.75v12.8a1.2 1.2 0 0 1-1.85 1.01L12 16.25l-5.15 3.31A1.2 1.2 0 0 1 5 18.55V5.75Z" />
+            </svg>
+            <span>打开原生浏览器</span>
+          </button>
+        </nav>
+
+        <p id="nativeUrl" class="sidebar-status"></p>
+
+        <button
+          id="sidebarToggleButton"
+          class="sidebar-toggle-button"
+          type="button"
+          aria-label="收起左侧菜单栏"
+          aria-pressed="false"
+        >
+          &lt;
+        </button>
+      </aside>
+
+      <section class="content">
+        <header class="toolbar">
+          <div>
+            <h2 id="viewTitle">管理器书签</h2>
+            <p id="syncSummary" class="muted">准备载入...</p>
+            <p id="faviconSummary" class="muted">站点图标尚未开始加载。</p>
+          </div>
+          <div class="toolbar-actions">
+            <input id="searchInput" type="search" placeholder="搜索标题、网址、标签或备注">
+            <button id="manualAddButton" class="secondary-button manager-only" type="button">手动添加</button>
+            <button id="importFromBrowserButton" class="secondary-button manager-only" type="button">从浏览器加入</button>
+            <button id="checkBrowserButton" class="secondary-button browser-only" type="button">检查更新</button>
+            <button id="selectAllBrowserButton" class="secondary-button import-only" type="button">全选</button>
+            <button id="clearBrowserSelectionButton" class="secondary-button import-only" type="button">清空</button>
+            <button id="confirmImportButton" class="primary-button import-only" type="button">加入管理器</button>
+            <button id="cancelImportButton" class="secondary-button import-only" type="button">取消选择</button>
+            <button id="compactModeButton" class="secondary-button" type="button" aria-pressed="false">极简模式</button>
+            <button id="themeModeButton" class="secondary-button" type="button" aria-pressed="false">暗色模式</button>
+          </div>
+        </header>
+
+        <section id="manualAddPanel" class="action-panel" hidden>
+          <input id="addTitleInput" type="text" placeholder="书签名称">
+          <input id="addUrlInput" type="url" placeholder="https://example.com">
+          <button id="confirmManualAddButton" class="primary-button" type="button">添加</button>
+          <button id="cancelManualAddButton" class="secondary-button" type="button">取消</button>
+        </section>
+
+        <section class="stats-grid" aria-label="同步状态">
+          <article class="stat">
+            <span id="browserCountLabel">浏览器书签</span>
+            <strong id="browserCount">0</strong>
+          </article>
+          <article class="stat">
+            <span id="managedCountLabel">管理器书签</span>
+            <strong id="managedCount">0</strong>
+          </article>
+          <article class="stat">
+            <span id="addedCountLabel">本次变化</span>
+            <strong id="addedCount">0</strong>
+          </article>
+        </section>
+
+        <div id="bookmarkList" class="bookmark-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <template id="bookmarkItemTemplate">
+      <article class="bookmark-item">
+        <div class="drag-handle" title="拖动排序" aria-label="拖动排序" role="button" tabindex="0">⋮⋮</div>
+        <label class="bookmark-select">
+          <input class="browser-select-checkbox" type="checkbox">
+        </label>
+        <div class="favicon" aria-hidden="true"></div>
+        <div class="bookmark-main">
+          <a class="bookmark-title" target="_blank" rel="noreferrer"></a>
+          <input class="title-edit-input" type="text" aria-label="书签名称">
+          <span class="bookmark-url"></span>
+          <input class="url-edit-input" type="url" aria-label="书签网址">
+          <div class="bookmark-meta">
+            <span class="status-pill"></span>
+            <span class="date-added"></span>
+          </div>
+          <div class="editor-row">
+            <input class="tag-input" type="text" placeholder="标签，用逗号分隔">
+            <input class="note-input" type="text" placeholder="备注">
+          </div>
+        </div>
+        <div class="bookmark-actions">
+          <button class="edit-button" type="button" aria-label="编辑书签内容">编辑</button>
+          <button class="pin-button" type="button" aria-label="切换置顶状态">置顶</button>
+          <button class="delete-button" type="button" aria-label="从管理器移除书签">移除</button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./manager.js"></script>
+  </body>
+</html>

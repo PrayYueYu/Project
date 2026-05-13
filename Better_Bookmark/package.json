@@ -1,0 +1,9 @@
+{
+  "name": "better-bookmark-manager",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/api.js && node --check src/browserDetection.js && node --check src/bookmarkSync.js && node --check src/background.js && node --check src/manager.js && node --check src/popup.js"
+  }
+}

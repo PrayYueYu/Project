@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Bookmark Manager</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body class="popup-body">
+    <main class="popup-card">
+      <p class="eyebrow">Better Bookmark Manager</p>
+      <h1>书签助手</h1>
+      <p id="popupBrowser" class="muted">正在识别浏览器...</p>
+      <p id="popupSyncStatus" class="sync-line">正在读取书签数量...</p>
+
+      <div class="popup-actions">
+        <button id="popupOpenManager" class="primary-button" type="button">打开管理页</button>
+        <button id="popupOpenNative" class="secondary-button" type="button">打开原生书签页</button>
+      </div>
+    </main>
+
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Better Bookmark Manager",
+  "description": "Local-first bookmark manager with browser-aware native bookmark page switching and automatic index sync.",
+  "version": "0.1.0",
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "tabs"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' data: https://favicon.im;"
+  },
+  "action": {
+    "default_title": "Better Bookmark Manager",
+    "default_popup": "src/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "options_page": "src/manager.html"
+}
