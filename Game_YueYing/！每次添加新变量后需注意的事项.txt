@@ -1,0 +1,18 @@
+1.地图数量变量
+Map_allnum需要更改（若新增了地图）
+在newdata.yue中对应位置改一下
+（newdata.yue文件存的是所有数据的初始值，按照存档顺序来存放）
+
+
+2.新变量需要分别在存档和读档函数里面添加
+并且在newdata.yue文件中在对应位置加上该变量的初始值
+
+3.如果有新地图，operate2中
+int GetWhere(int op);
+void Transmit(int op);
+void Changexy(int op);
+这三个函数需要新增
+在data中Data_init需要新增地图名
+
+
+4.若新增物品，同样需要在Data_init中添加物品名字
